@@ -1,18 +1,82 @@
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">&copy; My twitter 2021</span>
+      </div>
+    </footer>
 
-    <footer class="footer mt-auto py-3 bg-light">
-	  <div class="container">
-	    <span class="text-muted">&copy; My website</span>
-	  </div>
-	</footer>
-    <!-- Optional JavaScript; choose one of the two! -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="LoginModalTitle">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="">
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-    -->
+          <input type="hidden" id="LoginActive" name="LoginActive" value="1">
+                  <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email address">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+          </div>
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <a id="toggleLogin">Sign Up</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="LoginSignUpButton" class="btn btn-primary">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script>
+    $("#toggleLogin").click(function(){
+      if($("#LoginActive").val() == "1"){
+        $("#LoginActive").val("0"); 
+        $("#LoginModalTitle").html("Sign Up");
+        $("#LoginSignUpButton").html("Sign Up");
+        $("#toggleLogin").html("Login");
+      } else{
+        $("#LoginActive").val("1"); 
+        $("#LoginModalTitle").html("Login");
+        $("#LoginSignUpButton").html("Login");
+        $("#toggleLogin").html("Sign Up");
+      }
+    });
+
+    $("#LoginSignUpButton").click(function(){
+      $.ajax({
+        type:"POST",
+        url: "actions.php?action=loginSignup",
+        data: "email=" + $("#email").val() + "&password=" + $("#password").val() + "&LoginActive=" + $("#LoginActive").val(), 
+        success: function(result){
+          alert(result);
+        }
+
+      });
+    });
+  </script>
+
   </body>
 </html>
