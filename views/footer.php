@@ -1,8 +1,8 @@
-    <footer class="footer">
-      <div class="container">
-        <span class="text-muted">&copy; My twitter 2021</span>
-      </div>
-    </footer>
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">&copy; My twitter 2021</span>
+    </div>
+  </footer>
 
 
     <!-- Modal -->
@@ -16,8 +16,8 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="alert alert-danger" id="loginAlert"></div>
         <form action="">
-
           <input type="hidden" id="LoginActive" name="LoginActive" value="1">
                   <div class="form-group">
             <label for="email">Email</label>
@@ -28,8 +28,6 @@
             <input type="password" class="form-control" id="password" placeholder="Password">
           </div>
         </form>
-
-
       </div>
       <div class="modal-footer">
         <a id="toggleLogin">Sign Up</a>
@@ -71,7 +69,12 @@
         url: "actions.php?action=loginSignup",
         data: "email=" + $("#email").val() + "&password=" + $("#password").val() + "&LoginActive=" + $("#LoginActive").val(), 
         success: function(result){
-          alert(result);
+          if (result == "1"){
+            window.location.assign("home page");
+          }
+          else{
+            $("#loginAlert").html(result).show();
+          }
         }
 
       });
