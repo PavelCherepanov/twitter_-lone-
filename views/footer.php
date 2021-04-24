@@ -79,6 +79,40 @@
 
       });
     });
+    $(".toggleFollow").click(function(){
+      var id = $(this).attr("data-userId");
+      $.ajax({
+        type:"POST",
+        url: "actions.php?action=toggleFollow",
+        data: "userId=" + id, 
+        success: function(result){
+          if (result == "1"){
+            $("a[data-userId'" + id + "']").html("Follow")
+          } else if (result == "2"){
+            $("a[data-userId'" + id + "']").html("Unfollow")
+          }
+        }
+
+      });
+    });
+
+    $("#footerTweetButton").click(function{
+      $.ajax({
+        type:"POST",
+        url: "actions.php?action=postTweet",
+        data: "tweetContent=" + $("#tweetContent").val(), 
+        success: function(result){
+          if (result == "1"){
+            $("#tweetSuccess").show();
+            $("#tweetFail").hide();
+          } else if (result != "1"){
+            $("#tweetFail").html(result).show();
+            $("#tweetSuccess").hide();
+          }
+        }
+
+      });
+    });
   </script>
 
   </body>

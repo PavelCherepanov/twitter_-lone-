@@ -50,4 +50,26 @@ if ($_GET["action"] == "loginSignup"){
 
 
 }
+
+if ($_GET['action'] == 'toggleFollow'){
+	$query = "SELECT * FROM isFollowing follower = ".mysqli_real_escape_string($link, $_SESSION["id"])." AND isFollowing =".mysqli_real_escape_string($link, $_POST["id"])." LIMIT 1";
+	$result = mysqli_query($link, $query);
+	if (mysqli_num_rows($result)>0){
+		$row = mysqli_fetch_assoc($result);
+		mysqli_query($link, "DELETE FROM isFollowing WHERE id = ".mysqli_real_escape_string($link, $row["id"])."LIMIT 1");
+	} else {
+		mysqli_query($link, "INSERT INTO isFollowing (follower, isFollowing) VALUES (".mysqli_real_escape_string($link, $_SESSION["id"]).",".mysqli_real_escape_string($link, $_POST["userId"]).")");
+	}
+}
+
+if ($_GET["action"] == "postTweet"){
+	if (!$_POST["tweetContent"]){
+            echo "Your tweet is empty";
+          } else if (strlen($_POST['tweetContent']) > 140 ){
+          	echo "Your tweet is too long";
+          }else {
+          	mysqli_query($link, "INSERT INTO tweets (`tweet`, `userId`, `datetime`) VALUES (".mysqli_real_escape_string($link, $_POST["tweetContent"]).",".mysqli_real_escape_string($link, $_SESSION["userId"]).", NOW())");
+          	echo 1
+          }
+}
 ?>

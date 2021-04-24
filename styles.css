@@ -35,3 +35,10 @@ body {
   padding: 5px;
   margin: 5px;
 }
+#tweetSuccess{
+  display:none;
+}
+
+#tweetFail{
+  display:none;
+}
